@@ -29,8 +29,12 @@ size_t Size(void* ptr)
 
 // implement merge sort
 // extraMemoryAllocated counts bytes of extra memory allocated
-void mergeSort(int pData[], int l, int r)
-{
+void mergeSort(int pData[], int l, int r){
+	int mid = (l+r)/2;
+
+	for (int i = 0; i < mid; i++){
+		mergeSort(pData[i], l, mid);
+	}
 }
 
 // parses input file to an integer array
@@ -67,19 +71,23 @@ int parseData(char *inputFileName, int **ppData)
 // prints first and last 100 items in the data array
 void printArray(int pData[], int dataSz)
 {
-	int i, sz = dataSz - 100;
+	int i, sz = (dataSz > 100 ? dataSz - 100 : 0);
+	int firstHundred = (dataSz < 100 ? dataSz : 100);
+
 	printf("\tData:\n\t");
-	for (i=0;i<100;++i)
-	{
+
+	for (i=0;i<firstHundred;++i){
 		printf("%d ",pData[i]);
 	}
+
 	printf("\n\t");
-	
-	for (i=sz;i<dataSz;++i)
-	{
+
+	for (i=sz;i<dataSz;++i){
 		printf("%d ",pData[i]);
 	}
+
 	printf("\n\n");
+
 }
 
 int main(void)
